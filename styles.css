@@ -1,0 +1,758 @@
+
+    /* ==========================================
+       CSS STYLES
+       ========================================== */
+    :root {
+      --primary-pink: #ff8fa3;
+      --soft-pink: #ffb3c1;
+      --light-pink: #fff0f3;
+      --deep-rose: #c9184a;
+      --warm-cream: #fffafb;
+      --text-color: #4a3e43;
+      --card-bg: rgba(255, 255, 255, 0.85);
+      --shadow-soft: 0 10px 30px rgba(255, 143, 163, 0.2);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Nunito', sans-serif;
+      background: linear-gradient(135deg, #fff0f3 0%, #ffe5ec 50%, #ffc2d1 100%);
+      color: var(--text-color);
+      min-height: 100vh;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    /* Floating Heart Particles Background */
+    .bg-hearts {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
+    }
+
+    .bg-heart {
+      position: absolute;
+      color: rgba(255, 143, 163, 0.35);
+      animation: floatUp 10s infinite linear;
+      bottom: -50px;
+    }
+
+    .send-kisses-button {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      z-index: 20;
+      padding: 13px 22px;
+      border: 1px solid rgba(201, 24, 74, 0.12);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.94);
+      color: var(--deep-rose);
+      box-shadow: 0 8px 20px rgba(80, 50, 60, 0.14);
+      font: inherit;
+      font-size: 1rem;
+      font-weight: 800;
+      cursor: pointer;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .send-kisses-button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 11px 24px rgba(80, 50, 60, 0.18);
+    }
+
+    .send-kisses-button:focus-visible {
+      outline: 3px solid var(--primary-pink);
+      outline-offset: 3px;
+    }
+
+    @keyframes floatUp {
+      0% {
+        transform: translateY(0) rotate(0deg) scale(0.8);
+        opacity: 0;
+      }
+      20% {
+        opacity: 0.8;
+      }
+      100% {
+        transform: translateY(-110vh) rotate(360deg) scale(1.2);
+        opacity: 0;
+      }
+    }
+
+    .falling-heart {
+      position: fixed;
+      top: -40px;
+      color: var(--deep-rose);
+      pointer-events: none;
+      z-index: 1000;
+      animation: fallDown linear forwards;
+    }
+
+    @keyframes fallDown {
+      from { transform: translateY(0) rotate(0deg); opacity: 1; }
+      to { transform: translateY(110vh) rotate(360deg); opacity: 0.2; }
+    }
+
+    /* Layout Components */
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 40px 20px;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Hero Banner */
+    .hero {
+      text-align: center;
+      padding: 40px 20px 20px;
+      animation: fadeInDown 1.2s ease;
+    }
+
+    .hero-badge {
+      display: inline-block;
+      background: #ffffff;
+      padding: 8px 18px;
+      border-radius: 30px;
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: var(--deep-rose);
+      box-shadow: 0 4px 15px rgba(201, 24, 74, 0.1);
+      margin-bottom: 15px;
+    }
+
+    .hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.8rem;
+      color: var(--deep-rose);
+      margin-bottom: 10px;
+    }
+
+    .hero p {
+      font-size: 1.15rem;
+      color: #6c5862;
+    }
+
+    /* Interactive Love Envelope Letter */
+    .letter-section {
+      margin: 40px 0;
+      display: flex;
+      justify-content: center;
+    }
+
+    .envelope-wrapper {
+      position: relative;
+      cursor: pointer;
+      width: 100%;
+      max-width: 550px;
+    }
+
+    .envelope {
+      background: #ffffff;
+      border-radius: 16px;
+      padding: 35px 25px;
+      box-shadow: var(--shadow-soft);
+      border: 2px solid var(--soft-pink);
+      text-align: center;
+      transition: all 0.4s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .envelope:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 35px rgba(255, 143, 163, 0.3);
+    }
+
+    .stamp {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      width: 50px;
+      height: 60px;
+      border: 2px dashed var(--primary-pink);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--deep-rose);
+      font-size: 1.2rem;
+      border-radius: 4px;
+      background: #fff8f9;
+    }
+
+    .envelope-icon {
+      font-size: 3.5rem;
+      color: var(--primary-pink);
+      margin-bottom: 15px;
+      transition: transform 0.3s ease;
+    }
+
+    .envelope:hover .envelope-icon {
+      transform: scale(1.1) rotate(-5deg);
+    }
+
+    .envelope h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.6rem;
+      color: var(--deep-rose);
+      margin-bottom: 8px;
+    }
+
+    .tap-hint {
+      font-size: 0.85rem;
+      color: var(--primary-pink);
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    /* Modal / Letter Content */
+    .letter-modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.4);
+      backdrop-filter: blur(5px);
+      z-index: 100;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .letter-modal.active {
+      display: flex;
+      animation: fadeIn 0.4s ease;
+    }
+
+    .letter-card {
+      background: #fffafb;
+      background-image: radial-gradient(#ffccd5 0.75px, transparent 0.75px);
+      background-size: 16px 16px;
+      max-width: 600px;
+      width: 100%;
+      max-height: 85vh;
+      overflow-y: auto;
+      padding: 40px 30px;
+      border-radius: 20px;
+      border: 3px solid var(--soft-pink);
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
+      position: relative;
+    }
+
+    .letter-gate {
+      background: #fffafb;
+      background-image: radial-gradient(#ffccd5 0.75px, transparent 0.75px);
+      background-size: 16px 16px;
+      width: 100%;
+      max-width: 500px;
+      padding: 40px 30px;
+      border-radius: 20px;
+      border: 3px solid var(--soft-pink);
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
+      text-align: center;
+    }
+
+    .letter-card[hidden] { display: none; }
+
+    .gate-question {
+      margin: 0 auto 24px;
+      font-family: 'Nunito', sans-serif;
+      font-size: 1.2rem;
+      line-height: 1.6;
+      color: var(--deep-rose);
+    }
+
+    .letter-gate .letter-title {
+      font-family: 'Nunito', sans-serif;
+      font-size: 1.2rem;
+      line-height: 1.6;
+    }
+
+    .gate-message {
+      margin: 0 auto 24px;
+      font-family: 'Nunito', sans-serif;
+      font-size: 1.1rem;
+      line-height: 1.8;
+      color: var(--deep-rose);
+    }
+
+    .falling-emoji {
+      position: fixed;
+      top: -45px;
+      z-index: 110;
+      pointer-events: none;
+      animation: fallDown linear forwards;
+    }
+
+    .gate-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .gate-button {
+      border: 0;
+      border-radius: 30px;
+      padding: 12px 25px;
+      background: linear-gradient(135deg, var(--primary-pink), var(--deep-rose));
+      color: white;
+      font: inherit;
+      font-weight: 800;
+      cursor: pointer;
+      box-shadow: 0 6px 16px rgba(201, 24, 74, 0.2);
+    }
+
+    .gate-no { background: #8e7c83; }
+
+    .close-btn {
+      position: absolute;
+      top: 15px;
+      right: 20px;
+      background: none;
+      border: none;
+      font-size: 1.8rem;
+      color: var(--deep-rose);
+      cursor: pointer;
+    }
+
+    .letter-title {
+      font-family: 'Nunito', sans-serif;
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: var(--deep-rose);
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    .letter-body {
+      font-size: 1.1rem;
+      line-height: 1.8;
+      color: #3d3035;
+    }
+
+    .letter-body p {
+      margin-bottom: 16px;
+    }
+
+    .letter-signature {
+      font-family: 'Nunito', sans-serif;
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--deep-rose);
+      text-align: right;
+      margin-top: 30px;
+    }
+
+    /* Our Beautiful Journey memory card */
+    .journey-section {
+      margin-top: 76px;
+    }
+
+    .journey-title {
+      margin: 0 0 14px;
+      color: #b52e5c;
+      font-family: 'Caveat', cursive;
+      font-size: clamp(2.7rem, 6vw, 3.7rem);
+      font-weight: 700;
+      text-align: center;
+    }
+
+    .journey-subtitle {
+      margin-bottom: 34px;
+      color: #77717a;
+      font-size: 1.2rem;
+      text-align: center;
+    }
+
+    .journey-card {
+      width: 100%;
+      height: 540px;
+      padding: 0;
+      border: 0;
+      border-radius: 38px;
+      background: transparent;
+      cursor: pointer;
+      perspective: 1200px;
+    }
+
+    .journey-card-inner {
+      position: relative;
+      display: block;
+      width: 100%;
+      height: 100%;
+      border-radius: inherit;
+      transform-style: preserve-3d;
+      transition: transform 0.75s cubic-bezier(0.2, 0.7, 0.2, 1);
+    }
+
+    .journey-card.flipped .journey-card-inner {
+      transform: rotateY(180deg);
+    }
+
+    .journey-card:focus-visible {
+      outline: 3px solid var(--primary-pink);
+      outline-offset: 4px;
+    }
+
+    .journey-face {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 42px 36px;
+      border: 1px solid rgba(201, 24, 74, 0.06);
+      border-radius: 38px;
+      background: #fff;
+      box-shadow: 0 10px 25px rgba(80, 50, 60, 0.12);
+      backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
+    }
+
+    .journey-back {
+      align-items: stretch;
+      transform: rotateY(180deg);
+      overflow-y: auto;
+      text-align: left;
+    }
+
+    .journey-back-title {
+      margin-bottom: 18px;
+      color: #b52e5c;
+      font-family: 'Caveat', cursive;
+      font-size: 2.5rem;
+      font-weight: 700;
+      text-align: center;
+    }
+
+    .journey-memory-copy {
+      display: block;
+      color: #4a3e43;
+      font-size: 1.05rem;
+      line-height: 1.65;
+    }
+
+    .journey-memory-copy + .journey-memory-copy { margin-top: 14px; }
+
+    .journey-card-title {
+      color: #292832;
+      font-size: clamp(1.7rem, 4vw, 2.25rem);
+      font-weight: 800;
+    }
+
+    .journey-card-caption {
+      margin-top: 36px;
+      color: #d17e9b;
+      font-size: 1.2rem;
+      letter-spacing: 0.04em;
+    }
+
+    .journey-card-hint {
+      margin-top: 54px;
+      color: #999;
+      font-size: 1.1rem;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+
+    @media (max-width: 600px) {
+      .journey-card { height: 520px; }
+      .journey-face { padding: 30px 24px; border-radius: 28px; }
+      .journey-back-title { font-size: 2.1rem; }
+      .journey-memory-copy { font-size: 0.95rem; }
+    }
+
+    /* Interactive Flip Cards: Why I Love You */
+    .section-title {
+      text-align: center;
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem;
+      color: var(--deep-rose);
+      margin: 50px 0 25px;
+    }
+
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 20px;
+    }
+
+    .flip-card {
+      background-color: transparent;
+      height: 200px;
+      perspective: 1000px;
+      cursor: pointer;
+    }
+
+    .flip-card-inner {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      text-align: center;
+      transition: transform 0.6s cubic-bezier(0.4, 0.2, 0.2, 1);
+      transform-style: preserve-3d;
+      border-radius: 16px;
+      box-shadow: var(--shadow-soft);
+    }
+
+    .flip-card.flipped .flip-card-inner {
+      transform: rotateY(180deg);
+    }
+
+    .flip-card-front, .flip-card-back {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      -webkit-backface-visibility: hidden;
+      backface-visibility: hidden;
+      border-radius: 16px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      border: 1px solid var(--soft-pink);
+    }
+
+    .flip-card-front {
+      background: #ffffff;
+      color: var(--deep-rose);
+    }
+
+    .flip-card-front i {
+      font-size: 2.5rem;
+      margin-bottom: 12px;
+      color: var(--primary-pink);
+    }
+
+    .flip-card-back {
+      background: linear-gradient(135deg, var(--primary-pink), var(--deep-rose));
+      color: white;
+      transform: rotateY(180deg);
+    }
+
+    .flip-card-back p {
+      font-size: 1.05rem;
+      line-height: 1.5;
+    }
+
+    /* Interactive Future Goals / Bucket List Checklist */
+    .checklist-card {
+      background: var(--card-bg);
+      backdrop-filter: blur(10px);
+      padding: 30px;
+      border-radius: 20px;
+      box-shadow: var(--shadow-soft);
+      border: 1px solid white;
+      margin-top: 30px;
+    }
+
+    .checklist {
+      list-style: none;
+      margin-top: 15px;
+    }
+
+    .checklist-item {
+      display: flex;
+      align-items: center;
+      padding: 12px 15px;
+      margin-bottom: 10px;
+      background: white;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      border: 1px solid #ffe5ec;
+    }
+
+    .checklist-item:hover {
+      border-color: var(--primary-pink);
+      transform: translateX(5px);
+    }
+
+    .checklist-item.checked {
+      background: #fff0f3;
+      text-decoration: line-through;
+      color: #999;
+    }
+
+    .checkbox {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      border: 2px solid var(--primary-pink);
+      margin-right: 15px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s ease;
+      flex-shrink: 0;
+    }
+
+    .checklist-item.checked .checkbox {
+      background: var(--deep-rose);
+      border-color: var(--deep-rose);
+    }
+
+    .checklist-item.checked .checkbox::after {
+      content: '✓';
+      color: white;
+      font-size: 14px;
+      font-weight: bold;
+    }
+
+    .bucket-list-form {
+      display: flex;
+      gap: 10px;
+      margin-top: 18px;
+    }
+
+    .bucket-list-form input {
+      flex: 1;
+      min-width: 0;
+      padding: 12px 15px;
+      border: 1px solid #ffe5ec;
+      border-radius: 12px;
+      font: inherit;
+      color: var(--text-color);
+    }
+
+    .bucket-list-form input:focus {
+      outline: 2px solid var(--primary-pink);
+      outline-offset: 2px;
+    }
+
+    .bucket-list-form button {
+      border: 0;
+      border-radius: 12px;
+      padding: 12px 18px;
+      background: var(--deep-rose);
+      color: white;
+      font: inherit;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .visually-hidden {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+
+    @media (max-width: 480px) {
+      .bucket-list-form { flex-direction: column; }
+    }
+
+    /* Interactive Love Button Counter */
+    .love-counter-section {
+      text-align: center;
+      max-width: 1000px;
+      margin: 50px auto 20px;
+      padding: 76px 30px 82px;
+      border: 2px solid rgba(201, 24, 74, 0.12);
+      border-radius: 40px;
+      background: rgba(255, 255, 255, 0.72);
+      box-shadow: 0 12px 32px rgba(201, 24, 74, 0.08);
+    }
+
+    .love-heading {
+      margin-bottom: 40px;
+      color: #26232b;
+      font-size: clamp(1.5rem, 4vw, 2.25rem);
+      font-weight: 800;
+    }
+
+    .love-btn {
+      width: 200px;
+      height: 200px;
+      margin: 0 auto;
+      background: #d9255b;
+      color: white;
+      border: none;
+      font-size: 3.5rem;
+      border-radius: 50%;
+      cursor: pointer;
+      box-shadow: 0 12px 24px rgba(201, 24, 74, 0.2);
+      transition: transform 0.2s, box-shadow 0.2s, background 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .love-btn:hover { background: #c91f53; }
+
+    .love-btn:active {
+      transform: scale(0.95);
+    }
+
+    .counter-display {
+      margin-top: 18px;
+      color: #b52e5c;
+      font-family: 'Caveat', cursive;
+      font-size: clamp(2rem, 5vw, 3.2rem);
+      line-height: 1.2;
+    }
+
+    .love-hint {
+      margin: -18px 0 32px;
+      color: #6c5862;
+      font-size: 1.15rem;
+    }
+
+    .love-message {
+      margin-top: 34px;
+      color: #b44d71;
+      font-size: 1.15rem;
+      font-weight: 700;
+    }
+
+    @media (max-width: 480px) {
+      .love-counter-section {
+        padding: 48px 20px 52px;
+        border-radius: 28px;
+      }
+
+      .love-heading { margin-bottom: 30px; }
+      .love-btn { width: 160px; height: 160px; }
+      .love-hint { margin: -10px 0 26px; font-size: 1rem; }
+      .love-message { margin-top: 26px; }
+    }
+
+    /* Animations */
+    @keyframes fadeInDown {
+      from { opacity: 0; transform: translateY(-20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    footer {
+      text-align: center;
+      padding: 30px;
+      font-size: 0.9rem;
+      color: #888;
+    }
+  

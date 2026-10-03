@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>For My Favorite Person 💖</title>
+  
+  <!-- Google Fonts & FontAwesome Icons -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Nunito:wght@400;600;700;800&family=Playfair+Display:ital,wght@0,600;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <button class="send-kisses-button" id="sendKissesButton" type="button">
+    💋 Send Kisses
+  </button>
+
+  <!-- Floating Heart Particles Background -->
+  <div class="bg-hearts" id="heartsContainer"></div>
+
+  <div class="container">
+    
+    <!-- Hero Header -->
+    <header class="hero">
+      <span class="hero-badge"><i class="fa-solid fa-heart"></i> Just For You</span>
+      <h1>To My Favorite Person</h1>
+      <p>Thank you for being my patient, understanding, and safe place. ❤️</p>
+    </header>
+
+    <!-- Interactive Envelope / Love Letter -->
+    <section class="letter-section">
+      <div class="envelope-wrapper" onclick="openLetter()">
+        <div class="envelope">
+          <div class="stamp"><i class="fa-solid fa-heart"></i></div>
+          <i class="fa-solid fa-envelope-open-text envelope-icon"></i>
+          <h3>You've Got a Letter!</h3>
+          <p class="tap-hint">Tap here to open & read my heart 💌</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Modal Popup for Love Letter -->
+    <div class="letter-modal" id="letterModal">
+      <div class="letter-gate" id="letterGate">
+        <h2 class="letter-title" id="gateQuestion">I've got a letter for you. Do you want to read it?</h2>
+        <p class="gate-message" id="gateMessage" hidden></p>
+        <div class="gate-buttons">
+          <button class="gate-button" id="gateYes" type="button">Yes 💖</button>
+          <button class="gate-button gate-no" id="gateNo" type="button">No</button>
+        </div>
+      </div>
+      <div class="letter-card" id="letterCard" hidden>
+        <button class="close-btn" onclick="closeLetter()">&times;</button>
+        <h2 class="letter-title">My Dearest Ntsako</h2>
+        <div class="letter-body">
+          <p>I wanted to create something special for you to show you how much you truly mean to me.</p>
+          
+          <p>Thank you so much for waiting for me, for not giving up on me through all these months, and for giving me the space and time I needed to heal and grow into my best self.</p>
+
+          <p>Your patience, warmth, and constant support haven't gone unnoticed. Meeting you at school has been one of the brightest blessings in my life, and having you by my side makes everything feel so much lighter and happier.</p>
+
+          <p>I love you so much. I wish for us to keep growing together, learning together, and going far together into the future.</p>
+        </div>
+        <div class="letter-signature">
+          Your Love,<br />
+          Slindile Mthimunye ❤️
+        </div>
+      </div>
+    </div>
+
+    <!-- Our Beautiful Journey -->
+    <section class="journey-section" aria-labelledby="journeyTitle">
+      <h2 class="journey-title" id="journeyTitle">Our Beautiful Journey</h2>
+      <p class="journey-subtitle">Tap on the card to reveal a sweet memory</p>
+      <button class="journey-card" id="journeyCard" type="button" aria-expanded="false" aria-label="Meeting at School memory card. Activate to flip and read the memory.">
+        <span class="journey-card-inner">
+          <span class="journey-face journey-front">
+            <span class="journey-card-title">Meeting at School</span>
+            <span class="journey-card-caption">WHERE IT ALL BEGAN</span>
+            <span class="journey-card-hint">Tap to read our memory ✦</span>
+          </span>
+          <span class="journey-face journey-back">
+            <span class="journey-back-title">Our Story</span>
+            <span class="journey-memory-copy">Who knew that meeting at school would bring someone so special into my life? You went from a familiar face to my favorite person.</span>
+            <span class="journey-memory-copy">You would get on my nerves sometimes, but you stood your ground and stayed in my life. I know I gave you problems at first and sent you mixed signals, but I'm glad you still chose me.</span>
+            <span class="journey-memory-copy">I also want you to know that I love the coding and studying sessions we always have together.</span>
+            <span class="journey-card-hint">Tap to flip back ✦</span>
+          </span>
+        </span>
+      </button>
+    </section>
+
+    <!-- Flip Cards: Why I Love You -->
+    <h2 class="section-title">Little Things I Love About You</h2>
+    <div class="cards-grid">
+      
+      <div class="flip-card" onclick="this.classList.toggle('flipped')">
+        <div class="flip-card-inner">
+          <div class="flip-card-front">
+            <i class="fa-solid fa-hourglass-half"></i>
+            <h3>Your Patience</h3>
+            <span style="font-size: 0.8rem; color: #999; margin-top: 8px;">(Tap to flip)</span>
+          </div>
+          <div class="flip-card-back">
+            <p>You never rushed me. You gave me the time and grace to heal at my own pace, which proved how genuine your heart is.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="flip-card" onclick="this.classList.toggle('flipped')">
+        <div class="flip-card-inner">
+          <div class="flip-card-front">
+            <i class="fa-solid fa-shield-heart"></i>
+            <h3>My Safe Haven</h3>
+            <span style="font-size: 0.8rem; color: #999; margin-top: 8px;">(Tap to flip)</span>
+          </div>
+          <div class="flip-card-back">
+            <p>Whether at school or anywhere else, being around you brings a sense of peace and comfort that I truly treasure.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="flip-card" onclick="this.classList.toggle('flipped')">
+        <div class="flip-card-inner">
+          <div class="flip-card-front">
+            <i class="fa-solid fa-seedling"></i>
+            <h3>Growing Together</h3>
+            <span style="font-size: 0.8rem; color: #999; margin-top: 8px;">(Tap to flip)</span>
+          </div>
+          <div class="flip-card-back">
+            <p>I love how we motivate each other to become better versions of ourselves every single day.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="flip-card" onclick="this.classList.toggle('flipped')">
+        <div class="flip-card-inner">
+          <div class="flip-card-front">
+            <i class="fa-solid fa-face-smile"></i>
+            <h3>Your Warm Smile</h3>
+            <span style="font-size: 0.8rem; color: #999; margin-top: 8px;">(Tap to flip)</span>
+          </div>
+          <div class="flip-card-back">
+            <p>Your warm smile brightens my day and makes everything feel a little better.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="flip-card" onclick="this.classList.toggle('flipped')">
+        <div class="flip-card-inner">
+          <div class="flip-card-front">
+            <i class="fa-solid fa-face-laugh"></i>
+            <h3>Your Funny Character</h3>
+            <span style="font-size: 0.8rem; color: #999; margin-top: 8px;">(Tap to flip)</span>
+          </div>
+          <div class="flip-card-back">
+            <p>You always know how to make me laugh, and I love the fun and joy you bring into my life.</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Future Goals / Bucket List Checklist -->
+    <div class="checklist-card">
+      <h2 class="section-title" style="margin-top: 0;">Our Future Bucket List 💫</h2>
+      <ul class="checklist">
+        <li class="checklist-item" onclick="toggleCheck(this)">
+          <div class="checkbox"></div>
+          <span>Study & work sessions together 📚</span>
+        </li>
+        <li class="checklist-item" onclick="toggleCheck(this)">
+          <div class="checkbox"></div>
+          <span>Go on spontaneous food dates 🍝</span>
+        </li>
+        <li class="checklist-item" onclick="toggleCheck(this)">
+          <div class="checkbox"></div>
+          <span>Travel and explore new places together ✈️️</span>
+        </li>
+        <li class="checklist-item" onclick="toggleCheck(this)">
+          <div class="checkbox"></div>
+          <span>Support each other's big dreams & goals 🌟</span>
+        </li>
+        <li class="checklist-item" onclick="toggleCheck(this)">
+          <div class="checkbox"></div>
+          <span>Keep growing closer every single day 💕</span>
+        </li>
+      </ul>
+      <form class="bucket-list-form" id="bucketListForm">
+        <label class="visually-hidden" for="bucketListInput">Add more to our bucket list</label>
+        <input id="bucketListInput" type="text" maxlength="120" placeholder="Add more to our bucket list..." autocomplete="off" required />
+        <button type="submit"><i class="fa-solid fa-plus"></i> Add</button>
+      </form>
+    </div>
+
+    <!-- Interactive Love Button -->
+    <div class="love-counter-section">
+      <h2 class="love-heading">Do you know how much I love you?</h2>
+      <p class="love-hint">Keep clicking the heart to see love increase!</p>
+      <button class="love-btn" onclick="sendLove()" aria-label="Increase the love meter">
+        <span aria-hidden="true">💗</span>
+      </button>
+      <div class="counter-display" id="counterDisplay" aria-live="polite">
+        <span>Love Meter:</span> <span id="lovePercentage">0%</span>
+      </div>
+      <p class="love-message">My heart belongs to you! 💗</p>
+    </div>
+
+    <footer>
+      Created with ❤️ | Ours to build and grow forever.
+    </footer>
+
+  </div>
+
+  <!-- ==========================================
+       JAVASCRIPT LOGIC
+       ========================================== -->
+  <script src="script.js" defer></script>
+</body>
+</html>
