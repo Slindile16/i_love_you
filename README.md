@@ -24,3 +24,5 @@ The page loads Google Fonts and Font Awesome from their CDNs, so an internet con
 ## Customize the page
 
 Edit the text in `index.html`, the appearance in `styles.css`, and the interactions in `script.js`.
+
+In work with ValambyaT3ch
