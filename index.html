@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>For My Favorite Person 💖</title>
+  <title>Our Forever Love 💖</title>
   
   <!-- Google Fonts & FontAwesome Icons -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -14,14 +14,75 @@
 </head>
 <body>
 
-  <button class="send-kisses-button" id="sendKissesButton" type="button">
-    💋 Send Kisses
-  </button>
+  <!-- ==========================================
+       PASSWORD GATE SCREEN
+       ========================================== -->
+  <div class="password-gate" id="passwordGate">
+    <div class="password-container">
+      <h1 class="password-title">💖 Our Love Story 💖</h1>
+      <p class="password-subtitle">A space for you & me</p>
+      
+      <div class="password-form-wrapper">
+        <p class="password-hint" id="passwordHint">Hint: Our anniversary year with a special number 💕</p>
+        <form id="passwordForm" class="password-form">
+          <input 
+            type="password" 
+            id="passwordInput" 
+            placeholder="Enter password..." 
+            autocomplete="off"
+            required
+          />
+          <button type="submit">Unlock</button>
+        </form>
+        <p class="password-error" id="passwordError" hidden></p>
+      </div>
+    </div>
+  </div>
 
-  <!-- Floating Heart Particles Background -->
-  <div class="bg-hearts" id="heartsContainer"></div>
+  <!-- ==========================================
+       DASHBOARD - NAVIGATION MENU
+       ========================================== -->
+  <div class="dashboard-menu" id="dashboardMenu" hidden>
+    <div class="dashboard-container">
+      <h2 class="dashboard-title">Choose a Story</h2>
+      <div class="dashboard-options">
+        <button class="dashboard-option" onclick="navigateTo('her')">
+          <i class="fa-solid fa-heart"></i>
+          <h3>From Her</h3>
+          <p>Her words to him</p>
+        </button>
+        <button class="dashboard-option" onclick="navigateTo('him')">
+          <i class="fa-solid fa-heart"></i>
+          <h3>From Him</h3>
+          <p>His words to her</p>
+        </button>
+        <button class="dashboard-option" onclick="navigateTo('ours')">
+          <i class="fa-solid fa-heart"></i>
+          <h3>Ours</h3>
+          <p>Our forever journey</p>
+        </button>
+      </div>
+    </div>
+  </div>
 
-  <div class="container">
+  <!-- ==========================================
+       FROM HER SECTION (MAIN CONTENT)
+       ========================================== -->
+  <div class="content-section" id="sectionHer">
+    <div class="back-btn-container">
+      <button class="back-btn" onclick="navigateTo('dashboard')">
+        <i class="fa-solid fa-arrow-left"></i> Back to Menu
+      </button>
+    </div>
+
+    <button class="send-kisses-button" id="sendKissesButton" type="button">
+      💋 Send Kisses
+    </button>
+
+    <!-- Floating Heart Particles Background -->
+    <div class="bg-hearts" id="heartsContainer"></div>
+
+    <div class="container">
     
     <!-- Hero Header -->
     <header class="hero">
@@ -210,10 +271,83 @@
     </div>
 
     <footer>
-      Created with ❤️ | Ours to build and grow forever.<br />
-      Visit our website: <a href="https://slindile16.github.io/i_love_you/">slindile16.github.io/i_love_you</a>
+      Created with ❤️ | Ours to build and grow forever.
     </footer>
 
+    </div>
+  </div>
+
+  <!-- ==========================================
+       FROM HIM SECTION
+       ========================================== -->
+  <div class="content-section" id="sectionHim" hidden>
+    <div class="back-btn-container">
+      <button class="back-btn" onclick="navigateTo('dashboard')">
+        <i class="fa-solid fa-arrow-left"></i> Back to Menu
+      </button>
+    </div>
+
+    <div class="bg-hearts" id="heartsContainerHim"></div>
+
+    <div class="container placeholder-section">
+      <header class="hero">
+        <span class="hero-badge"><i class="fa-solid fa-heart"></i> For You</span>
+        <h1>From Him</h1>
+        <p>His words to her — space where only he can upload, she is just receiver</p>
+      </header>
+
+      <div class="empty-state">
+        <i class="fa-solid fa-feather"></i>
+        <h2>Coming Soon...</h2>
+        <p>He's working on the perfect words for you. 💭</p>
+      </div>
+
+      <footer>
+        Created with ❤️ | We're writing our story together.
+      </footer>
+    </div>
+  </div>
+
+  <!-- ==========================================
+       OURS SECTION
+       ========================================== -->
+  <div class="content-section" id="sectionOurs" hidden>
+    <div class="back-btn-container">
+      <button class="back-btn" onclick="navigateTo('dashboard')">
+        <i class="fa-solid fa-arrow-left"></i> Back to Menu
+      </button>
+    </div>
+
+    <div class="bg-hearts" id="heartsContainerOurs"></div>
+
+    <div class="container placeholder-section">
+      <header class="hero">
+        <span class="hero-badge"><i class="fa-solid fa-heart"></i> Our Forever</span>
+        <h1>Our Forever — Till Death Do Us Part</h1>
+        <p>From where it all started till death do us part</p>
+      </header>
+
+      <div class="timeline-tags">
+        <span class="timeline-tag">Graduation</span>
+        <span class="timeline-tag">Lobola</span>
+        <span class="timeline-tag">Small Moments</span>
+        <span class="timeline-tag">Big Moments</span>
+        <span class="timeline-tag">Travel</span>
+      </div>
+
+      <div class="timeline-container">
+        <div class="timeline-line"></div>
+        <div class="empty-state">
+          <i class="fa-solid fa-images"></i>
+          <h2>Our Moments</h2>
+          <p>The beautiful memories and milestones of our journey together will live here. 📸✨</p>
+        </div>
+      </div>
+
+      <footer>
+        Created with ❤️ | Till death do us part, and beyond.
+      </footer>
+    </div>
   </div>
 
   <!-- ==========================================
