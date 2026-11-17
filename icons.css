@@ -1,0 +1,13 @@
+/* Local symbols keep every screen available offline without a font download. */
+.fa-solid { display: inline-block; font-style: normal; line-height: 1; }
+.fa-heart::before { content: '♥'; }
+.fa-arrow-left::before { content: '←'; }
+.fa-envelope-open-text::before { content: '💌'; }
+.fa-hourglass-half::before { content: '⌛'; }
+.fa-shield-heart::before { content: '🛡'; }
+.fa-seedling::before { content: '🌱'; }
+.fa-face-smile::before { content: '☺'; }
+.fa-face-laugh::before { content: '😄'; }
+.fa-plus::before { content: '+'; }
+.fa-feather::before { content: '✒'; }
+.fa-images::before { content: '📷'; }

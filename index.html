@@ -2,14 +2,11 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#fff0f3" />
   <title>Our Forever Love 💖</title>
   
-  <!-- Google Fonts & FontAwesome Icons -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Nunito:wght@400;600;700;800&family=Playfair+Display:ital,wght@0,600;1,400&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <link rel="stylesheet" href="icons.css" />
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
@@ -30,11 +27,13 @@
             id="passwordInput" 
             placeholder="Enter password..." 
             autocomplete="off"
+            aria-label="Our love story password"
+            enterkeyhint="go"
             required
           />
           <button type="submit">Unlock</button>
         </form>
-        <p class="password-error" id="passwordError" hidden></p>
+        <p class="password-error" id="passwordError" role="alert" hidden></p>
       </div>
     </div>
   </div>
@@ -45,6 +44,7 @@
   <div class="dashboard-menu" id="dashboardMenu" hidden>
     <div class="dashboard-container">
       <h2 class="dashboard-title">Choose a Story</h2>
+      <p class="dashboard-subtitle">Our little world, always with you.</p>
       <div class="dashboard-options">
         <button class="dashboard-option" onclick="navigateTo('her')">
           <i class="fa-solid fa-heart"></i>
@@ -68,7 +68,7 @@
   <!-- ==========================================
        FROM HER SECTION (MAIN CONTENT)
        ========================================== -->
-  <div class="content-section" id="sectionHer">
+  <div class="content-section" id="sectionHer" hidden>
     <div class="back-btn-container">
       <button class="back-btn" onclick="navigateTo('dashboard')">
         <i class="fa-solid fa-arrow-left"></i> Back to Menu
@@ -104,7 +104,7 @@
     </section>
 
     <!-- Modal Popup for Love Letter -->
-    <div class="letter-modal" id="letterModal">
+    <div class="letter-modal" id="letterModal" role="dialog" aria-modal="true" aria-label="Your love letter" tabindex="-1">
       <div class="letter-gate" id="letterGate">
         <h2 class="letter-title" id="gateQuestion">I've got a letter for you. Do you want to read it?</h2>
         <p class="gate-message" id="gateMessage" hidden></p>
@@ -114,7 +114,7 @@
         </div>
       </div>
       <div class="letter-card" id="letterCard" hidden>
-        <button class="close-btn" onclick="closeLetter()">&times;</button>
+        <button class="close-btn" onclick="closeLetter()" aria-label="Close letter">&times;</button>
         <h2 class="letter-title">My Dearest Ntsako</h2>
         <div class="letter-body">
           <p>I wanted to create something special for you to show you how much you truly mean to me.</p>
@@ -260,7 +260,7 @@
     <!-- Interactive Love Button -->
     <div class="love-counter-section">
       <h2 class="love-heading">Do you know how much I love you?</h2>
-      <p class="love-hint">Keep clicking the heart to see love increase!</p>
+      <p class="love-hint">Keep tapping the heart to see love increase!</p>
       <button class="love-btn" onclick="sendLove()" aria-label="Increase the love meter">
         <span aria-hidden="true">💗</span>
       </button>
@@ -293,7 +293,7 @@
       <header class="hero">
         <span class="hero-badge"><i class="fa-solid fa-heart"></i> For You</span>
         <h1>From Him</h1>
-        <p>His words to her — space where only he can upload, she is just receiver</p>
+        <p>A space for his words to her.</p>
       </header>
 
       <div class="empty-state">
@@ -353,6 +353,12 @@
   <!-- ==========================================
        JAVASCRIPT LOGIC
        ========================================== -->
+  <nav class="app-nav" id="appNav" aria-label="Stories" hidden>
+    <button type="button" data-section="dashboard" onclick="navigateTo('dashboard')"><span aria-hidden="true">⌂</span>Home</button>
+    <button type="button" data-section="her" onclick="navigateTo('her')"><span aria-hidden="true">♡</span>From Her</button>
+    <button type="button" data-section="him" onclick="navigateTo('him')"><span aria-hidden="true">♥</span>From Him</button>
+    <button type="button" data-section="ours" onclick="navigateTo('ours')"><span aria-hidden="true">∞</span>Ours</button>
+  </nav>
   <script src="script.js" defer></script>
 </body>
 </html>

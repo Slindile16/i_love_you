@@ -8,11 +8,21 @@
     const passwordError = document.getElementById('passwordError');
     const dashboardMenu = document.getElementById('dashboardMenu');
 
+    let currentSection = 'dashboard';
+    const appNav = document.getElementById('appNav');
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+    function readSaved(key, fallback) {
+      try { return JSON.parse(localStorage.getItem(key)) ?? fallback; }
+      catch { return fallback; }
+    }
+
     function checkUnlocked() {
       const isUnlocked = sessionStorage.getItem('loveUnlocked') === 'true';
       if (isUnlocked) {
         passwordGate.hidden = true;
         dashboardMenu.hidden = false;
+        appNav.hidden = false;
       }
     }
 
@@ -27,6 +37,8 @@
         passwordGate.hidden = true;
         dashboardMenu.hidden = false;
         passwordInput.value = '';
+        appNav.hidden = false;
+        navigateTo('dashboard');
       } else {
         passwordError.textContent = '❌ Wrong password. Try again!';
         passwordError.hidden = false;
@@ -44,6 +56,15 @@
     // NAVIGATION & SECTION SWITCHING
     // ==========================================
     function navigateTo(section) {
+      if (!passwordGate.hidden) return;
+      if (!['dashboard', 'her', 'him', 'ours'].includes(section)) section = 'dashboard';
+      currentSection = section;
+      document.body.dataset.section = section;
+      document.querySelectorAll('.app-nav button').forEach((button) => {
+        if (button.dataset.section === section) button.setAttribute('aria-current', 'page');
+        else button.removeAttribute('aria-current');
+      });
+      window.scrollTo(0, 0);
       const herSection = document.getElementById('sectionHer');
       const himSection = document.getElementById('sectionHim');
       const oursSection = document.getElementById('sectionOurs');
@@ -105,6 +126,7 @@
     const sendKissesButton = document.getElementById('sendKissesButton');
     if (sendKissesButton) {
       sendKissesButton.addEventListener('click', () => {
+        if (reducedMotion.matches) return;
         const kissEmojis = ['💋', '😘', '😗', '😚'];
 
         for (let i = 0; i < 24; i++) {
@@ -132,8 +154,12 @@
     const gateYes = document.getElementById('gateYes');
     const gateNo = document.getElementById('gateNo');
     let gateStep = 0;
+    let letterTimer;
+    let letterOpener;
 
     function openLetter() {
+      window.clearTimeout(letterTimer);
+      letterOpener = document.activeElement;
       gateStep = 0;
       gateQuestion.textContent = "I've got a letter for you. Do you want to read it?";
       gateQuestion.hidden = false;
@@ -143,10 +169,15 @@
       letterCard.hidden = true;
       letterGate.hidden = false;
       letterModal.classList.add('active');
+      document.body.classList.add('modal-open');
+      gateYes.focus();
     }
 
     function closeLetter() {
+      window.clearTimeout(letterTimer);
       letterModal.classList.remove('active');
+      document.body.classList.remove('modal-open');
+      if (letterOpener) letterOpener.focus();
     }
 
     if (gateYes) {
@@ -164,15 +195,17 @@
         gateMessage.textContent = 'Make sure you have a tissue because you are about to get emotional';
         gateMessage.hidden = false;
         gateYes.hidden = true;
-        window.setTimeout(() => {
+        letterTimer = window.setTimeout(() => {
           letterGate.hidden = true;
           letterCard.hidden = false;
+          letterCard.querySelector('.close-btn').focus();
         }, 2400);
       });
     }
 
     if (gateNo) {
       gateNo.addEventListener('click', () => {
+        if (reducedMotion.matches) return;
         for (let i = 0; i < 18; i++) {
           const tear = document.createElement('span');
           tear.className = 'falling-emoji';
@@ -204,13 +237,32 @@
     // ==========================================
     function toggleCheck(item) {
       item.classList.toggle('checked');
+      item.setAttribute('aria-checked', String(item.classList.contains('checked')));
+      localStorage.setItem('ourBucketChecks', JSON.stringify(
+        Array.from(bucketList.children, (entry) => entry.classList.contains('checked'))
+      ));
     }
 
     // Add bucket-list ideas and keep them saved in this browser.
     const bucketList = document.querySelector('.checklist');
     const bucketListForm = document.getElementById('bucketListForm');
     const bucketListInput = document.getElementById('bucketListInput');
-    const savedBucketItems = bucketList ? JSON.parse(localStorage.getItem('ourBucketList') || '[]') : [];
+    const storedBucketItems = readSaved('ourBucketList', []);
+    const savedBucketItems = Array.isArray(storedBucketItems)
+      ? storedBucketItems.filter((text) => typeof text === 'string') : [];
+
+    function makeCheckAccessible(item, checked = false) {
+      item.tabIndex = 0;
+      item.setAttribute('role', 'checkbox');
+      item.classList.toggle('checked', checked);
+      item.setAttribute('aria-checked', String(checked));
+      item.addEventListener('keydown', (event) => {
+        if (event.key === ' ' || event.key === 'Enter') {
+          event.preventDefault();
+          item.click();
+        }
+      });
+    }
 
     function addBucketItem(text, save = true) {
       if (!bucketList) return;
@@ -223,6 +275,7 @@
       item.append(checkbox, label);
       item.addEventListener('click', () => toggleCheck(item));
       bucketList.appendChild(item);
+      makeCheckAccessible(item);
 
       if (save) {
         savedBucketItems.push(text);
@@ -232,6 +285,14 @@
 
     if (bucketList) {
       savedBucketItems.forEach((text) => addBucketItem(text, false));
+      const checks = readSaved('ourBucketChecks', []);
+      Array.from(bucketList.children).forEach((item, index) => {
+        // Added items already have keyboard handlers.
+        if (item.hasAttribute('role')) {
+          item.classList.toggle('checked', Array.isArray(checks) && checks[index] === true);
+          item.setAttribute('aria-checked', String(item.classList.contains('checked')));
+        } else makeCheckAccessible(item, Array.isArray(checks) && checks[index] === true);
+      });
 
       if (bucketListForm) {
         bucketListForm.addEventListener('submit', (event) => {
@@ -248,15 +309,19 @@
     // ==========================================
     // FROM HER - INTERACTIVE LOVE COUNTER WITH FALLING HEARTS
     // ==========================================
-    let loveCount = 0;
+    const storedLove = readSaved('ourLoveCount', 0);
+    let loveCount = Number.isSafeInteger(storedLove) && storedLove >= 0 ? storedLove : 0;
+    document.getElementById('lovePercentage').textContent = `${loveCount}%`;
     function sendLove() {
       loveCount += 100;
+      localStorage.setItem('ourLoveCount', JSON.stringify(loveCount));
       const lovePercentage = document.getElementById('lovePercentage');
       if (lovePercentage) {
         lovePercentage.textContent = `${loveCount}%`;
       }
 
       // Release a shower of hearts from the top of the screen.
+      if (reducedMotion.matches) return;
       for (let i = 0; i < 14; i++) {
         const heart = document.createElement('i');
         heart.className = 'fa-solid fa-heart falling-heart';
@@ -268,3 +333,44 @@
         heart.addEventListener('animationend', () => heart.remove(), { once: true });
       }
     }
+
+    // Called by Android's system Back gesture and by Escape in browser previews.
+    window.handleAndroidBack = function () {
+      if (letterModal.classList.contains('active')) {
+        closeLetter();
+        return true;
+      }
+      if (currentSection !== 'dashboard') {
+        navigateTo('dashboard');
+        return true;
+      }
+      return false;
+    };
+
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape') window.handleAndroidBack();
+      if (event.key === 'Tab' && letterModal.classList.contains('active')) {
+        const buttons = Array.from(letterModal.querySelectorAll('button'))
+          .filter((button) => button.getClientRects().length > 0);
+        const first = buttons[0];
+        const last = buttons[buttons.length - 1];
+        if (!first) { event.preventDefault(); letterModal.focus(); }
+        else if (event.shiftKey && document.activeElement === first) {
+          event.preventDefault(); last.focus();
+        } else if (!event.shiftKey && document.activeElement === last) {
+          event.preventDefault(); first.focus();
+        }
+      }
+    });
+
+    document.querySelectorAll('.flip-card, .envelope-wrapper').forEach((card) => {
+      card.tabIndex = 0;
+      card.setAttribute('role', 'button');
+      card.addEventListener('keydown', (event) => {
+        if (event.key === 'Enter' || event.key === ' ') {
+          event.preventDefault(); card.click();
+        }
+      });
+    });
+
+    if (passwordGate.hidden) navigateTo('dashboard');
